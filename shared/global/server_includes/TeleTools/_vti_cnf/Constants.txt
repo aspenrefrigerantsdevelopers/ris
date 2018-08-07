@@ -1,0 +1,11 @@
+vti_encoding:SR|utf8-nl
+vti_timelastmodified:TR|27 Jun 2008 13:30:05 -0000
+vti_extenderversion:SR|5.0.2.6790
+vti_lineageid:SR|{3269037F-E060-40B7-9CD4-823C70C52A60}
+vti_backlinkinfo:VX|shared/global/server_includes/TeleTools/LoadTeleTools.asp
+vti_author:SR|REFRON\\ben
+vti_modifiedby:SR|REFRON\\ben
+vti_nexttolasttimemodified:TW|25 Jun 2008 16:27:18 -0000
+vti_timecreated:TR|27 Jun 2008 13:30:05 -0000
+vti_cacheddtm:TX|27 Jun 2008 13:30:05 -0000
+vti_filesize:IR|52851

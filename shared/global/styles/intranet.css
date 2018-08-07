@@ -1,0 +1,140 @@
+BODY
+{
+    FONT-SIZE: 10pt;
+    MARGIN: 0px;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #ffffff
+}
+A
+{
+    COLOR: #000000;
+    TEXT-DECORATION: none
+}
+IMG
+{
+    BORDER-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    BORDER-LEFT: 0px;
+    BORDER-BOTTOM: 0px
+}
+INPUT
+{
+    PADDING-RIGHT: 3px;
+    PADDING-LEFT: 3px;
+    FONT-SIZE: 8pt;
+    FONT-FAMILY: Arial
+}
+TEXTAREA
+{
+    PADDING-RIGHT: 3px;
+    PADDING-LEFT: 3px;
+    FONT-SIZE: 10pt;
+    FONT-FAMILY: Arial
+}
+TABLE
+{
+    BORDER-RIGHT: black 1px solid;
+    BORDER-TOP: black 1px solid;
+    FONT-SIZE: 9pt;
+    MARGIN-LEFT: 2%;
+    BORDER-LEFT: black 1px solid;
+    WIDTH: 96%;
+    MARGIN-RIGHT: 1.9%;
+    BORDER-BOTTOM: black 1px solid;
+    FONT-FAMILY: Arial;
+    BORDER-COLLAPSE: collapse
+}
+TR
+{
+}
+THEAD
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    BACKGROUND-COLOR: #99ccff;
+    TEXT-ALIGN: left
+}
+TFOOT
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    BACKGROUND-COLOR: #99ccff;
+    TEXT-ALIGN: left
+}
+TH
+{
+    PADDING-RIGHT: 4px;
+    BORDER-TOP: white 1px solid;
+    PADDING-LEFT: 4px;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    PADDING-BOTTOM: 1px;
+    PADDING-TOP: 1px;
+    BORDER-BOTTOM: white 1px solid;
+    BACKGROUND-COLOR: #99ccff
+}
+TBODY
+{
+    FONT-SIZE: 9pt;
+    BACKGROUND-COLOR: #dadada
+}
+TD
+{
+    PADDING-RIGHT: 4px;
+    BORDER-TOP: white 1px solid;
+    PADDING-LEFT: 4px;
+    PADDING-BOTTOM: 1px;
+    PADDING-TOP: 1px;
+    BORDER-BOTTOM: white 1px solid
+}
+TABLE.TitleBar
+{
+    BORDER-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    MARGIN: 0px;
+    BORDER-LEFT: 0px;
+    WIDTH: 100%;
+    BORDER-BOTTOM: 0px;
+    HEIGHT: 21px
+}
+TBODY.TitleBar
+{
+}
+TR.TitleBar
+{
+}
+TD.TitleBar
+{
+    BORDER-RIGHT: 0px;
+    PADDING-RIGHT: 4px;
+    BORDER-TOP: 0px;
+    PADDING-LEFT: 4px;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11pt;
+    PADDING-BOTTOM: 1px;
+    BORDER-LEFT: 0px;
+    COLOR: white;
+    PADDING-TOP: 1px;
+    BORDER-BOTTOM: 0px;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #336699
+}
+.Row1
+{
+    BACKGROUND-COLOR: #e9edea
+}
+.Row2
+{
+    BACKGROUND-COLOR: #dadada
+}
+BUTTON
+{
+    FONT-SIZE: 8pt;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: white
+}
+SELECT
+{
+    FONT-SIZE: 8pt;
+    FONT-FAMILY: Arial
+}

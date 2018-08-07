@@ -1,0 +1,417 @@
+<?xml version="1.0"?>
+
+<component>
+
+<?component error="true" debug="true"?>
+
+<registration
+	description="Refron Intranet Page"
+	progid="RefronIntranetPage.WSC"
+	version="1.00"
+	classid="{00ee266a-afd3-4d93-81c5-7393ffe835df}">
+</registration>
+
+<public>
+	<property name="Title">
+		<get/>
+		<put/>
+	</property>
+	<property name="Titlebar">
+		<get/>
+		<put/>
+	</property>
+	<property name="Cached">
+		<get/>
+		<put/>
+	</property>
+	<property name="IsFramable">
+		<get/>
+		<put/>
+	</property>
+	<property name="ExpandableMenus">
+		<get/>
+		<put/>
+	</property>
+	<property name="PermissionOptions">
+		<get/>
+		<put/>
+	</property>
+	<property name="IsBuffered">
+		<get/>
+		<put/>
+	</property>
+	<property name="Stylesheet">
+		<get/>
+		<put/>
+	</property>
+	<property name="PrepareCalendar">
+		<get/>
+		<put/>
+	</property>
+	<method name="AddHeader">
+		<parameter name="string"/>
+	</method>
+	<method name="AddFooter">
+		<parameter name="string"/>
+	</method>
+	<method name="PrintHeader">
+	</method>
+	<method name="PrintFramework">
+	</method>
+	<method name="PrintTitleBar">
+	</method>
+	<method name="PrintFooter">
+	</method>
+	<method name="PrintPermissionError">
+	</method>
+	<method name="CheckPermissions">
+	</method>
+	<method name="CreateCalendar">
+		<parameter name="varForm"/>
+		<parameter name="varTextBox"/>
+		<parameter name="varDefault"/>
+		<parameter name="varNum"/>
+		<parameter name="varFrom"/>
+		<parameter name="varTo"/>
+	</method>
+</public>
+
+<implements type="ASP" id="ASP"/>
+
+<script language="VBScript">
+
+<![CDATA[
+
+Dim Title
+Title = "Refron Intranet"
+
+Dim Titlebar
+Titlebar = ""
+
+Dim Cached
+Cached = 0
+
+Dim IsFramable
+IsFramable = True
+
+Dim ExpandableMenus
+ExpandableMenus = ""
+
+Dim PermissionOptions
+PermissionOptions = ""
+
+Dim IsBuffered
+IsBuffered = True
+
+Dim Stylesheet
+If Request.ServerVariables("HTTPS") = "on" Then
+  Stylesheet = "https://" & Request.ServerVariables("HTTP_HOST") & "/shared/global/styles/intranet.css"
+Else
+  Stylesheet = "http://" & Request.ServerVariables("HTTP_HOST") & "/shared/global/styles/intranet.css"
+End If
+
+Dim PrepareCalendar
+PrepareCalendar = False
+
+Dim NewHeader, NewFooter
+
+Function Get_Title()
+	Get_Title = Title
+End Function
+
+Function Put_Title(newValue)
+	Title = newValue
+End Function
+
+Function Get_Titlebar()
+	Get_Titlebar = Titlebar
+End Function
+
+Function Put_Titlebar(newValue)
+	Titlebar = newValue
+End Function
+
+Function Get_Cached()
+	Get_Cached = Cached
+End Function
+
+Function Put_Cached(newValue)
+	Cached = newValue
+End Function
+
+Function Get_IsFramable()
+	Get_IsFramable = IsFramable
+End Function
+
+Function Put_IsFramable(newValue)
+	IsFramable = newValue
+End Function
+
+Function Get_ExpandableMenus()
+	Get_ExpandableMenus = ExpandableMenus
+End Function
+
+Function Put_ExpandableMenus(newValue)
+	ExpandableMenus = newValue
+End Function
+
+Function Get_PermissionOptions()
+	Get_PermissionOptions = PermissionOptions
+End Function
+
+Function Put_PermissionOptions(newValue)
+	PermissionOptions = newValue
+End Function
+
+Function Get_IsBuffered()
+	Get_IsBuffered = IsBuffered
+End Function
+
+Function Put_IsBuffered(newValue)
+	IsBuffered = newValue
+End Function
+
+Function Get_Stylesheet()
+	Get_Stylesheet = Stylesheet
+End Function
+
+Function Put_Stylesheet(newValue)
+	Stylesheet = newValue
+End Function
+
+Function Get_PrepareCalendar()
+	Get_PrepareCalendar = PrepareCalendar
+End Function
+
+Function Put_PrepareCalendar(newValue)
+	PrepareCalendar = newValue
+End Function
+
+Function AddHeader(string)
+	If Not IsNull(string) Then
+		NewHeader = NewHeader & string
+	End If
+End Function
+
+Function AddFooter(string)
+	If Not IsNull(string) Then
+		NewFooter = NewFooter & string
+	End If
+End Function
+
+Function PrintHeader()
+	If IsBuffered Then
+		Response.Buffer = True
+	Else
+		Response.Buffer = False
+	End If
+  Dim http
+  If Request.ServerVariables("HTTPS") = "on" Then
+    http = "https://"
+  Else
+    http = "http://"
+  End If
+	Dim Content
+	Content = "<!DOCTYPE HTML PUBLIC ""-//W3C//DTD HTML 4.01 Transitional//EN"">" &_
+		"<html>" &_
+		"<head>" &_
+		"<meta http-equiv=""Content-Language"" content=""en-us"">" &_
+		"<meta http-equiv=""Content-Base"" content=""" & http & Request.ServerVariables("HTTP_HOST") & """>" &_
+		"<meta http-equiv=""Content-Location"" content=""" & http & Request.ServerVariables("HTTP_HOST") & Request.ServerVariables("PATH_INFO") & """>" &_
+		"<meta http-equiv=""Date"" content=""" & Now() & """>" &_
+		"<meta http-equiv=""Last-Modified"" content=""" & Now() & """>"
+	Response.ContentType = "text/html"
+	Content = Content & "<meta http-equiv=""Content-Type"" content=""text/html; charset=windows-1252"">"
+	If Cached > 0 Then
+		Response.AddHeader "Pragma", "Private"
+		Content = Content & "<meta http-equiv=""Pragma"" content=""Private"">"
+		Response.CacheControl = "Private"
+		Content = Content & "<meta http-equiv=""Cache-Control"" content=""Private"">"
+		Response.Expires = Cached
+		Content = Content & "<meta http-equiv=""Expires"" content=""" & Cached & """>"
+		Response.ExpiresAbsolute = DateAdd("n", Cached, Now())	'n=minutes
+		Content = Content & "<meta http-equiv=""ExpiresAbsolute"" content=""" & DateAdd("n", Cached, Now()) & """>"
+	Else
+		Response.AddHeader "Pragma", "No-cache"
+		Content = Content & "<meta http-equiv=""Pragma"" content=""No-cache"">"
+		Response.CacheControl = "No-cache"
+		Content = Content & "<meta http-equiv=""Cache-Control"" content=""No-cache"">"
+		Response.Expires = -1440
+		Content = Content & "<meta http-equiv=""Expires"" content=""-1440"">"
+		Response.ExpiresAbsolute = DateAdd("n", -1440, Now())		'n=minutes
+		Content = Content & "<meta http-equiv=""ExpiresAbsolute"" content=""" & DateAdd("n", -1440, Now()) & """>"
+	End If
+	Content = Content & "<meta name=""robots"" content=""noindex, nofollow, noarchive, noimageindex, noimageclick"">"
+	Content = Content &_
+		"<link rel=""Shortcut Icon"" href=""" & http & Request.ServerVariables("HTTP_HOST") & "/favicon.ico"">"
+	If Stylesheet <> "" Then
+		Content = Content &_
+			"<link rel=""Stylesheet"" type=""text/css"" href=""" & Stylesheet & """>" &_
+			"<link rel=""Stylesheet"" type=""text/css"" href=""" & http & Request.ServerVariables("HTTP_HOST") & "/shared/global/styles/intranet_print.css"">"
+	End If
+	If InStr(1,Request.ServerVariables("HTTP_USER_AGENT"),"MSIE") = 0 Then
+		Content = Content & "<link rel=""stylesheet"" type=""text/css"" href=""" & http & Request.ServerVariables("HTTP_HOST") & "/shared/global/styles/intranet_netscape.css"">"
+	End If
+	If Not IsFramable Then
+		Content = Content & "<script language=""JavaScript"" type=""text/javascript"" SRC=""" & http & Request.ServerVariables("HTTP_HOST") & "/shared/global/client_scripts/check_frames.js""></script>"
+	End If
+
+	If ExpandableMenus <> "" Then
+		Content = Content & "<script language=""JavaScript"" type=""text/javascript"" SRC=""" & http & Request.ServerVariables("HTTP_HOST") & "/shared/global/client_scripts/expand_retract.js""></script>"
+		Dim aryMenus, MenuItem
+		aryMenus = Split(ExpandableMenus, ",")
+		For Each MenuItem In aryMenus
+			Content = Content &_
+				vbNewLine & "<script for=" & MenuItem & "_title event=onclick language=JavaScript>" &_
+				vbNewLine & "<!--" &_
+				vbNewLine & "expandRetract('" & MenuItem & "', " & MenuItem & "_image, null, 2);" &_
+				vbNewLine & "//-->" &_
+				vbNewLine & "</script>"
+			Content = Content &_
+				vbNewLine & "<script for=" & MenuItem & "_title event=onmouseover language=JavaScript>" &_
+				vbNewLine & "<!--" &_
+				vbNewLine & MenuItem & "_title.style.cursor='hand';" &_
+				vbNewLine & "//-->" &_
+				vbNewLine & "</script>"
+		Next
+		Content = Content &_
+			vbNewLine & "<script for=window event=onload language=JavaScript>" &_
+			vbNewLine & "<!--" &_
+			vbNewLine & "window.focus();" &_
+			vbNewLine & "setMenus('" & ExpandableMenus & "');" &_
+			vbNewLine & "//-->" &_
+			vbNewLine & "</script>"
+	End If
+	If PrepareCalendar Then
+		Content = Content &_
+			"<script language=""JavaScript"" type=""text/javascript"" SRC=""" & http & Request.ServerVariables("HTTP_HOST") & "/shared/global/client_scripts/calendar/calendar.js""></SCRIPT>" &_
+			"<iframe allowtransparency style=""display:none; position:absolute; width:148; height:194; z-index=100"" ID=""CalFrame"" MARGINHEIGHT=0 MARGINWIDTH=0 NORESIZE FRAMEBORDER=0 SCROLLING=""NO"" SRC=""/shared/global/client_scripts/calendar/calendar.htm"" onMouseOut=""CloseCal()""></IFRAME>"
+	End If
+	If NewHeader <> "" Then
+		Content = Content & NewHeader
+	End If
+	Content = Content &_
+		"<title>" & Title & "</title>" &_
+		"</head>"
+	Response.Write Content
+End Function
+
+Function PrintFramework()
+	If PrepareCalendar Then
+		Response.Write "<body onClick=""CloseCal();"">"
+	Else
+		Response.Write "<body>"
+	End If
+	Call PrintTitleBar()
+	If PermissionOptions <> "" Then
+		Dim aryOptions, PermissionOption, HasAccess, rsPermission
+		HasAccess = False
+		Set rsPermission = Session.Contents("Permissions")
+		aryOptions = Split(PermissionOptions, ",")
+		For Each PermissionOption In aryOptions
+			rsPermission.Filter = "PID=" & Mid(PermissionOption,1,(InStr(1,PermissionOption,"=",1)-1)) & " AND OID=" & Mid(PermissionOption,(InStr(1,PermissionOption,"=",1)+1))
+			If rsPermission.State <> 0 Then
+				If Not rsPermission.EOF Then
+					HasAccess = True
+				End If
+			End If
+		Next
+		If Not HasAccess Then
+			Call PrintPermissionError()
+		End If
+	End If
+End Function
+
+Function CheckPermissions()
+	If PermissionOptions <> "" Then
+		Dim aryOptions, PermissionOption, HasAccess, rsPermission
+		HasAccess = False
+		Set rsPermission = Session.Contents("Permissions")
+		aryOptions = Split(PermissionOptions, ",")
+		For Each PermissionOption In aryOptions
+			rsPermission.Filter = "PID=" & Mid(PermissionOption,1,(InStr(1,PermissionOption,"=",1)-1)) & " AND OID=" & Mid(PermissionOption,(InStr(1,PermissionOption,"=",1)+1))
+			If rsPermission.State <> 0 Then
+				If Not rsPermission.EOF Then
+					HasAccess = True
+				End If
+			End If
+		Next
+		If Not HasAccess Then
+			Call PrintPermissionError()
+		End If
+	End If
+End Function
+
+Function PrintTitleBar()
+	Response.Write _
+		"<a name=""title"">" &_
+		"<table class=""TitleBar"">" &_
+		"<tbody class=""TitleBar"">" &_
+		"<tr class=""TitleBar"">" &_
+		"<td class=""TitleBar"" width=""100%"" nowrap>" & Titlebar & "</td>"
+	Response.Write _
+		"<td class=""TitleBar"" nowrap align=""right"">" &_
+		"<span class=""DoNotPrint"">" & _
+		"<a href=""" & Session.Contents("PagePath") & """ onclick=""if(top != self) {top.window.location.href='" & Session.Contents("PagePath") & "'; return(false);} else {window.location.href='http://" & Request.ServerVariables("HTTP_HOST") & "/home.asp?url=" & Server.URLEncode(Session.Contents("PagePath")) & "'; return(false);}"" style=""COLOR:white;"" title=""Click here to expand this inner page to fill the entire browser window or frame it back into the website."">" &_
+		"<img src=""/shared/images/icons/full_screen.gif"" align=""absmiddle""> " &_
+		"<small>Hide/Show Buttons</small></a>" & _
+		"</span>" & _
+		"</td>"
+	Response.Write _
+		"<td class=""TitleBar"" nowrap align=""right"">" &_
+		"<span class=""DoNotPrint"">" & _
+		"<a href=""/home.asp?url=" & Server.URLEncode(Session.Contents("PagePath")) & """ onclick=""parent.window.location.href='http://" & Request.ServerVariables("HTTP_HOST") & "/home.asp?url=" & Server.URLEncode(Session.Contents("PagePath")) & "';"" style=""COLOR:white;"" title=""Click here to sync the URL of this page so that it can be bookmarked or saved as a shortcut."">" &_
+		"<img src=""/shared/images/icons/sync_bw.gif"" align=""absmiddle""> " &_
+		"<small>Sync URL</small></a>" & _
+		"</span>" & _
+		"</td>"
+	If ExpandableMenus <> "" Then
+		Response.Write _
+			"<td class=""TitleBar"" nowrap align=""right"">" & _
+			"<span class=""DoNotPrint"">" & _
+			"<span onMouseOver=""this.style.cursor='hand';"" onClick=""expandAll('" & ExpandableMenus & "', 2); return false;"" title=""Click here to expand all of the menu sections on this page.""><img src=""/shared/images/icons/expand.gif"" align=""absmiddle"" name=""expand_all_image"" id=""expand_all_image""><small> Expand All</small></span> &nbsp; <span onMouseOver=""this.style.cursor='hand';"" onClick=""retractAll('" & ExpandableMenus & "', 2); return false;"" title=""Click here to collapse all of the menu sections on this page.""><img src=""/shared/images/icons/retract.gif"" align=""absmiddle"" name=""retract_all_image"" id=""retract_all_image""><small> Collapse All</small></span>" & _
+			"</span>" & _
+			"</td>"
+	End If
+	Response.Write _
+		"<td nowrap class=""TitleBar"" align=""right"">" &_
+		"<span class=""DoNotPrint"">" & _
+		"<a href=""JavaScript:window.print()"" style=""COLOR:white;"" title=""Click here to print this screen."">" &_
+		"<img src=""/shared/images/icons/print_bw_icon.gif"" align=""absmiddle""> " &_
+		"<small>Print</small></a>&nbsp;" &_
+		"</span>" & _
+		"</td>" &_
+		"</tr>" &_
+		"</tbody>" &_
+		"</table>" &_
+		"</a>"
+End Function
+
+Function PrintFooter()
+	'--- Add any additional footers to the body contents ---
+	If NewFooter <> "" Then
+		Response.Write NewFooter
+	End If
+End Function
+
+Function PrintPermissionError()
+	Response.Write "<div style=""MARGIN:15px; COLOR:red"">You are not authorized to view this page:<ul><li>Your attempt to access this page has been recorded.</li><li>If you feel that you should have access to this page please contact Jerry Kestenbaum.</li><li>If you have recently been assigned new permissions you will need to close and re-open your browser for the changes to take effect.</li></ul></div></body></html>"
+	Response.End
+End Function
+
+Function CreateCalendar(varForm, varTextBox, varDefault, varNum, varFrom, varTo)
+	If PrepareCalendar And InStr(Request.ServerVariables("HTTP_USER_AGENT"), "MSIE") Then
+		If varDefault = "" Then varDefault = Date()
+		If varNum = "" Then varNum = 1
+		If varFrom = "" Then varFrom = "1/1/1753"
+		If varTo = "" Then varTo = "1/1/2999"
+		Response.Write "<input type=hidden name=""HiddenCalDate" & varNum & """ ID=""HiddenCalDate" & varNum & """ value='" & varDefault & "'>"
+		Response.Write "<a target=_self href=""JavaScript:ShowCalendar(document." & varForm & ".calimg" & varNum & ", document." & varForm & "." & varTextBox & ", document." & varForm & ".HiddenCalDate" & varNum & ", '" & varFrom & "', '" & varTo & "')"" onClick=""event.cancelBubble=true;""><IMG ALIGN=absmiddle BORDER=0 HEIGHT=21 ID=calimg" & varNum & " SRC=""/shared/global/client_scripts/calendar/calendar_original.gif"" style=""POSITION: relative"" WIDTH=34 ALT=""Calendar""></a>"
+	End If
+End Function
+
+]]>
+
+</script>
+
+</component>

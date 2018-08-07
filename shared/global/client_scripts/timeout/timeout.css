@@ -1,0 +1,15 @@
+BODY{font-family:Arial,Helvetica,sans-serif; font-size:9pt; background-color:white}
+TD{font-family:Arial,Helvetica,sans-serif; font-size:9pt}
+.mct{background-color:white}
+.er{color:red; font-size:8pt; font-weight:normal}
+.hblu{color:#000066; font-size:7.5pt; font-weight:normal}
+.hblub{color:#000066; font-size:7.5pt; font-weight:bold}
+.pgtbl{background-color:#669999; color:white; font-weight:bold; padding-left:25px; font-size:9pt}
+.pgtbh{background-color:#669999}
+.pgtbh:link{color:white;font-size:7.5pt}
+.pgtbh:visited{color:white;font-size:7.5pt}
+.dbl{font-size:10pt; font-weight:bold}
+.bxbgc{background-color:white}
+.bxbdc{background-color:#669999}
+.dlgrl{color:#669999}
+.fwb{width:120px}
